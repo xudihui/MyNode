@@ -1,6 +1,8 @@
 /* 事件发射器已经事件回调
    eventEmitter.js
-
+   
+   js事件在前端浏览器中，每个事件都会伴随和它相关的DOM元素一起出现，甚至可以通过event对象来溯源targetElement或者srcElement；
+   在nodeJs中，事件不伴随DOM元素，表示在事件处理或者http阶段不同的状态。
 */
 // 引入 events 模块
 var events = require('events');
@@ -27,3 +29,4 @@ eventEmitter.on('data_received', function(){
 eventEmitter.emit('connection');
 
 console.log("程序执行完毕。");
+
