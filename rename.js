@@ -29,7 +29,8 @@ fs.readdir(src, function(err, files) {
 		// fs.rename(oldPath, newPath, callback)
 		
 		// 下面，我们就可以依葫芦画瓢，确定新旧文件名称：
-		var oldPath = src + '/' + filename, newPath = src + '/' + filename.replace(/i/g, '你妹啊');
+		var oldPath = src + '/' + filename;
+		var newPath = src + '/' + filename.replace(/你妹啊/g, '@@'); //此处是重命名核心部分
 		// 重命名走起
 		fs.rename(oldPath, newPath, function(err) {
 			if (err) {
