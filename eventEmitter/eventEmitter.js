@@ -1,4 +1,4 @@
-/* 事件发射器已经事件回调
+/* 事件发射器以及事件回调
    eventEmitter.js
    
    js事件在前端浏览器中，每个事件都会伴随和它相关的DOM元素一起出现，甚至可以通过event对象来溯源targetElement或者srcElement；
