@@ -9,6 +9,8 @@ var fs = require("fs");
 // 现在我们要关心的是'icons'文件夹
 // 我们不妨用变量表示这个文件夹名称，方便日后维护和管理
 var src = 'src';
+//cmd 先调出命令窗口，然后cd进入工作目录，执行node rename
+
 
 // API文档中中找到遍历文件夹的API
 // 找到了，是fs.readdir(path, callback)
@@ -30,7 +32,7 @@ fs.readdir(src, function(err, files) {
 		
 		// 下面，我们就可以依葫芦画瓢，确定新旧文件名称：
 		var oldPath = src + '/' + filename;
-		var newPath = src + '/' + filename.replace(/@@/g, 'i'); //此处是重命名核心部分
+		var newPath = src + '/' + filename.replace(/i/g, '@@'); //此处是重命名核心部分
 		// 重命名走起
 		fs.rename(oldPath, newPath, function(err) {
 			if (err) {
