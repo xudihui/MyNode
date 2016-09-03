@@ -7,6 +7,7 @@
 	*/
 
 var do_ticket = function(money){
+	var time_ = new Date().getTime();
     var people = 0,residue = 0,_5people = 0,_10people = 0,_20people = 0,_50people = 0,j = 0,a = 0,b = 0,c = 0,d = 0;
 
     var _5 = function(){ //获得五元红包
@@ -78,7 +79,8 @@ var do_ticket = function(money){
 	}
 	*/
 	var str = '';
-	str = '5元:'+_5people+'</br>' +
+	str = '计算总耗时：'+(new Date().getTime()-time_)/1000+'s</br>' +
+	      '5元:'+_5people+'</br>' +
 	      '10元:'+_10people+'</br>' +
 	      '20元:'+_20people+'</br>' +
 	      '50元:'+_50people+'</br>'+
@@ -89,4 +91,4 @@ var do_ticket = function(money){
     str += '</br>剩余：' + (money-getTotle()) +'元'
 	return str;
 }
-console.log(do_ticket(200000000))  //node速度是最快的，算2亿元的红包只要1秒
+console.log(do_ticket(200000001))  //node速度是最快的，算2亿元的红包只要1秒
