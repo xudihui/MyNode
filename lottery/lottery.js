@@ -1,7 +1,3 @@
-//抽奖代码
-
-var do_ticket = function(money){
-    var people = 0,residue = 0,_5people = 0,_10people = 0,_20people = 0,_50people = 0,j = 0,a = 0,b = 0,c = 0,d = 0;
 	/**
 	红包金额区间：5元、10元、20元、50元
     红包比例：75%、10%、10%、5%
@@ -9,6 +5,10 @@ var do_ticket = function(money){
 	设置四个时钟，分别对应10进制，20进制，30进制，100进制
 
 	*/
+
+var do_ticket = function(money){
+    var people = 0,residue = 0,_5people = 0,_10people = 0,_20people = 0,_50people = 0,j = 0,a = 0,b = 0,c = 0,d = 0;
+
     var _5 = function(){ //获得五元红包
 		 a++;
 	}
@@ -34,7 +34,6 @@ var do_ticket = function(money){
 			 _5people++;
 			 if(getTotle() > money){
 			   _5people--;
-			   residue = getTotle() - money;
 			   break;
 			 }
 			 continue;
@@ -45,7 +44,6 @@ var do_ticket = function(money){
 			 _10people++;
 			 if(getTotle() > money){
 			   _10people--;
-			   residue = getTotle() - money;
 			 }
 			 continue;
 		 }
@@ -55,7 +53,6 @@ var do_ticket = function(money){
 			 _20people++;
 			 if(getTotle() > money){
 			   _20people--;
-			   residue = getTotle() - money;
 			 }
 			 continue;
 		 }
