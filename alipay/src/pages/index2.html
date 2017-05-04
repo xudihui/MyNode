@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html style='font-size:16px' version='2.6.1' class='officialAccounts' > <!-- 版本号，会在ajax请求头中传递给后台 -->
+  	<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no" />
+    <title>支付宝容器标题背景设置</title>  
+    <link rel="stylesheet" href="../resource/css/framework7.ios_min.css">
+    <link rel="stylesheet" href="../resource/css/my-app.css">	
+	</head>
+   <body baseUrl="/weixin/public/">
+<div style="padding-top:80px;">
+<img src="../resource/images/bg.png" style='width:100%;position:absolute;top:0'>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="#" class="button button-big resetTransparent1" id='test'>标题背景透明</a></div>
+          </div>
+</div> 
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="#" class="button button-big resetTransparent" id='test'>标题背景不透明</a></div>
+          </div>
+</div>  
+
+</div>
+
+<script>
+function ready(callback) {
+  // 如果jsbridge已经注入则直接调用
+  if (window.AlipayJSBridge) {
+    callback && callback();
+  } else {
+    // 如果没有注入则监听注入的事件
+    document.addEventListener('AlipayJSBridgeReady', callback, false);
+  }
+}
+ready(function(){
+  document.querySelector('.resetTransparent1').addEventListener('click', function(){
+      AlipayJSBridge.call('setTransparentTitle', {
+      transparentTitle:"auto"
+      });
+  });
+
+  document.querySelector('.resetTransparent').addEventListener('click', function(){
+    AlipayJSBridge.call("setTransparentTitle",{
+      transparentTitle:"none"
+    });
+  });  
+
+});
+</script>
+
+
+    </body>
+</html>
