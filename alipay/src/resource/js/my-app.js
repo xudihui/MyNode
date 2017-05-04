@@ -296,31 +296,7 @@ window.initDataNew = function(){
 			})
 					
 		} else {
-			// 获取用户实名信息
-			if(getQueryString("auth_code")) {
-				var a = getQueryString("auth_code");
-
-				    //使用auth_code换取实名信息
-					ajax(extGetUserIdByCode,{auth_code:a},function(data) {
-					console.log(data);
-					if(data.code == "0"){
-						
-
-					} else {
-						myApp.alert("失败")
-					}
-					
-				}, function(data) {
-					myApp.alert("请稍后再试");
-				})
-			} else {
-				//蓝盾授权
-				//window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&scope=auth_user&redirect_uri='+location.origin+location.pathname+'?type=index&inSmk=true';
-				//
-				//静默授权
-				window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&auth_skip=false&scope=auth_base&redirect_uri='+location.origin+location.pathname+'?type=index&inSmk=true';
-			}
-
+			getAlipayInfo({type:'userId'});
 		}	
 }
 
