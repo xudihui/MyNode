@@ -202,9 +202,15 @@ window.getAlipayInfo = function(opt){
 			if(getQueryString("auth_code")) {
 				var a = getQueryString("auth_code");
 			        if(type == 'userInfo'){
+			        	if(getQueryString("scope") == 'auth_base'){
+			        		window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&scope=auth_user&redirect_uri='+location.origin+location.pathname+'?type=index&inSmk=true';
+			        	}
                         url = extGetUserInfoByCode;
 			        }
 			        else if(type == 'userId'){
+			        	if(getQueryString("scope") == 'auth_user'){
+			        		window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&auth_skip=false&scope=auth_base&redirect_uri='+location.origin+location.pathname+'?type=index&inSmk=true';
+			        	}			        	
 			        	url = extGetUserIdByCode;
 			        }
 				    //使用auth_code换取实名信息
