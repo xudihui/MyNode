@@ -404,6 +404,10 @@ $$(window).on('load', function() {
 	if(TYPE == 'amount') {
 		url = 'amount.html';
 	}
+	// getUserId
+	if(TYPE == 'getUserId') {
+		url = 'getUserId.html';
+	}	
 	if(hash && localStorage.getItem('userMobile')){ //如果有hash并且有登录缓存，以hash为准
 		url = hash;
 	}
@@ -541,9 +545,42 @@ myApp.onPageInit('getCard', function(page) {
 			})       	
       }})	
     }
-	
+})
 
-
+// userId
+myApp.onPageInit('getUserId', function(page) {
+            var opt = opt || {};
+	        var type = 'userId';
+	        var url = '';
+			if(getQueryString("auth_code")) {
+				var a = getQueryString("auth_code");
+			        if(type == 'userInfo'){
+			        	if(getQueryString("scope") == 'auth_base'){
+			        		window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&scope=auth_user&redirect_uri='+location.origin+location.pathname+'?type=getUserId&inSmk=true';
+			        	}
+                        url = extGetUserInfoByCode;
+			        }
+			        else if(type == 'userId'){
+			        	if(getQueryString("scope") == 'auth_user'){
+			        		window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&auth_skip=false&scope=auth_base&redirect_uri='+location.origin+location.pathname+'?type=getUserId&inSmk=true';
+			        	}			        	
+			        	url = extGetUserIdByCode;
+			        }
+				    //使用auth_code换取实名信息
+					ajax(url,{auth_code:a},function(data) {
+					console.log(data);
+					if(data.code == "0"){
+						$$('.getUserId .mun').html(data.response.alipayId || '获取失败')
+					} else {
+						myApp.alert("获取UserId失败")
+					}
+					
+				}, function(data) {
+					myApp.alert("请稍后再试");
+				})
+			} else {
+				window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&auth_skip=false&scope=auth_base&redirect_uri='+location.origin+location.pathname+'?type=getUserId&inSmk=true';	
+			}     
 })
 
 
