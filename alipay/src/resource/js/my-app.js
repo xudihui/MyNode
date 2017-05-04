@@ -226,7 +226,7 @@ window.getAlipayInfo = function(opt){
 							ui_alipayId = userInfo.userId || '';
 				        }
 				        else if(type == 'userId'){
-							ui_alipayId = data.response.alipayId || '';
+							ui_alipayId = data.response.userId || '';
 							// userId存入本地缓存
 							localStorage.setItem('ui_alipayId',ui_alipayId);
 				        }
@@ -299,7 +299,7 @@ window.initDataNew = function(){
 			ui_alipayId = userInfo.userId || '';
 
 			// 获取卡列表信息
-			ajax(extGetVirCardList,{alipayId:ui_alipayId,name:userInfo.userName,oidno:userInfo.certNo}, function(data) {
+			ajax(extGetVirCardList,{alipayId:ui_alipayId}, function(data) {
 				if(data.code == "0" && data.response.cardno && ui_credit == '0'){
 					myCard = data.response;
 					mainView.router.load({url:'cardDetail.html',pushState:false});
@@ -311,7 +311,26 @@ window.initDataNew = function(){
 				console.log("后台不通")
 			})
 					
-		} else {
+		} 
+        else if(localStorage.getItem('ui_alipayId')){
+			// 支付宝Id
+			ui_alipayId = localStorage.getItem('ui_alipayId') || '';
+
+			// 获取卡列表信息
+			ajax(extGetVirCardList,{alipayId:ui_alipayId}, function(data) {
+				if(data.code == "0" && data.response.cardno && ui_credit == '0'){
+					myCard = data.response;
+					mainView.router.load({url:'cardDetail.html',pushState:false});
+				}
+				else {
+					mainView.router.load({url:'getCard.html',pushState:false});
+				}
+			},function(data){
+				console.log("后台不通")
+			})
+        }
+		else {
+
 			getAlipayInfo({type:'userId'});
 		}	
 }
@@ -570,7 +589,7 @@ myApp.onPageInit('getUserId', function(page) {
 					ajax(url,{auth_code:a},function(data) {
 					console.log(data);
 					if(data.code == "0"){
-						$$('.getUserId .mun').html(data.response.alipayId || '获取失败')
+						$$('.getUserId .mun').html(data.response.userId || '获取失败')
 					} else {
 						myApp.alert("获取UserId失败")
 					}
