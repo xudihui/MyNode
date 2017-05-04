@@ -174,6 +174,26 @@ String.prototype.removeAllSpace = function() {
 }
 
 
+//userId获取卡信息
+window.getCardList = function(Id){
+		ajax(extGetVirCardList,{alipayId:Id}, function(data) {
+			if(data.code == "0" && data.response.cardno){
+				myCard = data.response;
+				mainView.router.load({url:'cardDetail.html',pushState:false});
+			}
+			else if(data.code == "3007") {
+                myApp.confirm('信息获取失败，是否重新获取？',function(){
+                  getCardList(Id);
+				})
+			}
+			else{
+                mainView.router.load({url:'getCard.html',pushState:false});
+			}
+		},function(data){
+			console.log("请求卡列表失败")
+		})	
+}
+
 //获取支付宝信息，opt OBJECT ，type:userId 静默获取userId; type:userInfo 蓝盾获取userInfo
 window.getAlipayInfo = function(opt){
 	        var opt = opt || {};
@@ -204,18 +224,7 @@ window.getAlipayInfo = function(opt){
 							// userId存入本地缓存
 							localStorage.setItem('ui_alipayId',ui_alipayId);
 				        }
-						// userId获取卡列表信息
-						ajax(extGetVirCardList,{alipayId:ui_alipayId}, function(data) {
-							if(data.code == "0" && data.response.cardno){
-								myCard = data.response;
-								mainView.router.load({url:'cardDetail.html',pushState:false});
-							}
-							else {
-								mainView.router.load({url:'getCard.html',pushState:false});
-							}
-						},function(data){
-							console.log("请求卡列表失败")
-						})
+                        getCardList(ui_alipayId);
 
 					} else {
 						myApp.alert("获取支付宝实名信息失败")
