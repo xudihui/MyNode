@@ -1,7 +1,7 @@
 var getQueryString=function(name,str) {		//提取href参数ccc
 	var str_; //键值对 
-	if(str){
-		str_ = str.split('html')[1];
+	if(str && location.hash){
+		str_ = str.split('index#!')[1];
 	}
 	else{
         str_ = window.location.search;
@@ -154,6 +154,9 @@ var myCard = {}; //我的卡片
 // var certType = ['身份证','护照','军官证','士兵证','回乡证','临时身份证','户口簿','警官证','台胞证','营业执照','其它证件'];
 var hasDetail; //用于标识当前页面是否进入过卡详情
 var ui_credit = getQueryString('isCreditOpened') || '0'; //1：授信通过 2：授信不通过 0：未判定
+if(ui_credit == 0){
+	ui_credit = getQueryString('isCreditOpened',location.href) || '0';
+}
 var inSmk = getQueryString('inSmk') || 'false'; //'true':在市民卡生活号打开 'false'：在公交付款码进入
 
 String.prototype.setStars = function(index) { //扩展字符串原型方法，隐藏某个字符为*号，默认第二位，适用于不宜显示全部字段的场景
@@ -330,8 +333,7 @@ window.initDataNew = function(){
 			})
         }
 		else {
-
-			getAlipayInfo({type:'userId'});
+			getAlipayInfo({type:getQueryString("scope") == 'auth_user' ? 'userInfo' : 'userId'});		
 		}	
 }
 
@@ -551,12 +553,16 @@ function FunKaika(){
 myApp.onPageInit('getCard', function(page) {
     if(localStorage.getItem('userInfo')){
       userInfo = JSON.parse(localStorage.getItem('userInfo'));	
+	  $$('#getCard').on('click',function(){
+		// 开卡，姓名身份证手机号		
+		FunKaika();
+	  })    
+	 	if(ui_credit != '0'){
+			FunKaika();
+		}	      
     }
     else{
       getAlipayInfo({type:'userInfo',callback:function(){
-		 	if(ui_credit != '0'){
-				FunKaika();
-			}
 			// 请求开卡
 			$$('#getCard').on('click',function(){
 				// 开卡，姓名身份证手机号		
@@ -682,7 +688,7 @@ setTimeout(function(){
 			$J_linkall.addClass('link-disabled');
 
 		}			
-        if(inSmk=='true'){
+        if(inSmk=='true' || status != "1"){
             $$('.cardDetail .toolbar').show();
 		}
 
