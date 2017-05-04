@@ -225,6 +225,7 @@ window.getAlipayInfo = function(opt){
 							localStorage.setItem('ui_alipayId',ui_alipayId);
 				        }
                         getCardList(ui_alipayId);
+                        opt.callback && opt.callback();
 
 					} else {
 						myApp.alert("获取支付宝实名信息失败")
@@ -519,15 +520,23 @@ function FunKaika(){
 
 // 卡片领取
 myApp.onPageInit('getCard', function(page) {
-	userInfo = JSON.parse(localStorage.getItem('userInfo'));	
-	if(ui_credit != '0'){
-		FunKaika();
-	}
-	// 请求开卡
-	$$('#getCard').on('click',function(){
-		// 开卡，姓名身份证手机号		
-		FunKaika();
-	})
+    if(localStorage.getItem('userInfo')){
+      userInfo = JSON.parse(localStorage.getItem('userInfo'));	
+    }
+    else{
+      getAlipayInfo({type:'userInfo',callback:function(){
+		 	if(ui_credit != '0'){
+				FunKaika();
+			}
+			// 请求开卡
+			$$('#getCard').on('click',function(){
+				// 开卡，姓名身份证手机号		
+				FunKaika();
+			})       	
+      }})	
+    }
+	
+
 
 })
 
