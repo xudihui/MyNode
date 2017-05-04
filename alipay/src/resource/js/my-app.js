@@ -174,6 +174,69 @@ String.prototype.removeAllSpace = function() {
 }
 
 
+//获取支付宝信息，opt OBJECT ，type:userId 静默获取userId; type:userInfo 蓝盾获取userInfo
+window.getAlipayInfo = function(opt){
+	        var opt = opt || {};
+	        var type = opt.type || 'userInfo';
+	        var url = '';
+			if(getQueryString("auth_code")) {
+				var a = getQueryString("auth_code");
+			        if(type == 'userInfo'){
+                        url = extGetUserInfoByCode;
+			        }
+			        else if(type == 'userId'){
+			        	url = extGetUserIdByCode;
+			        }
+				    //使用auth_code换取实名信息
+					ajax(url,{auth_code:a},function(data) {
+					console.log(data);
+					if(data.code == "0"){
+
+				        if(type == 'userInfo'){
+							userInfo = data.response;
+							// 实名信息转字符串存入本地缓存
+							localStorage.setItem('userInfo',JSON.stringify(data.response));
+							// 支付宝Id
+							ui_alipayId = userInfo.userId || '';
+				        }
+				        else if(type == 'userId'){
+							ui_alipayId = data.response.userId || '';
+							// userId存入本地缓存
+							localStorage.setItem('ui_alipayId',ui_alipayId);
+				        }
+						// userId获取卡列表信息
+						ajax(extGetVirCardList,{alipayId:ui_alipayId}, function(data) {
+							if(data.code == "0" && data.response.cardno){
+								myCard = data.response;
+								mainView.router.load({url:'cardDetail.html',pushState:false});
+							}
+							else {
+								mainView.router.load({url:'getCard.html',pushState:false});
+							}
+						},function(data){
+							console.log("请求卡列表失败")
+						})
+
+					} else {
+						myApp.alert("获取支付宝实名信息失败")
+					}
+					
+				}, function(data) {
+					myApp.alert("请稍后再试");
+				})
+			} else {
+					if(type == 'userInfo'){
+					  //蓝盾授权
+					  window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&scope=auth_user&redirect_uri='+location.origin+location.pathname+'?type=index&inSmk=true';
+					}
+					else if(type == 'userId'){
+					  //静默授权
+					  window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&auth_skip=false&scope=auth_base&redirect_uri='+location.origin+location.pathname+'?type=index&inSmk=true';
+					}	
+			}   
+}
+
+
 //支付宝容器SDK注入
 window.AlipayReady = function(callback) {
   // 如果jsbridge已经注入则直接调用
@@ -244,7 +307,7 @@ window.initDataNew = function(){
 						
 
 					} else {
-						myApp.alert("获取支付宝实名信息失败")
+						myApp.alert("失败")
 					}
 					
 				}, function(data) {
