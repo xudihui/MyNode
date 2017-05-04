@@ -200,7 +200,7 @@ window.getAlipayInfo = function(opt){
 							ui_alipayId = userInfo.userId || '';
 				        }
 				        else if(type == 'userId'){
-							ui_alipayId = data.response.userId || '';
+							ui_alipayId = data.response.alipayId || '';
 							// userId存入本地缓存
 							localStorage.setItem('ui_alipayId',ui_alipayId);
 				        }
