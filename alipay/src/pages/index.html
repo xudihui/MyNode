@@ -190,7 +190,7 @@
   {{#if Result}}
       {{#each trades}}  
             <li class="item-content">
-              <a href='rechargeDetail.html' data-context='{"odate": "{{odate}}","cardno": "{{cardno}}","ordertype": "{{ordertype}}","orderno": "{{orderno}}","thirdorderno": "{{thirdorderno}}","ordertype": "{{ordertype}}","ostate": "{{ostate}}","ordermoney": "{{ordermoney}}"}'>
+              <a href='rechargeDetail.html' data-context='{"odate": "{{odate}}","cardno": "{{cardno}}","ordertype": "{{ordertype}}","orderno": "{{orderno}}","thirdorderno": "{{thirdorderno}}","ordertype": "{{ordertype}}","ostate": "{{ostate}}","ordermoney": "{{ordermoney}}"}' class='no-fastclick'>
               <div class="item-inner">
                 <div class="item-title">{{js "this.ordertype==1 ? '充值':'退款'"}} - {{cardno}}<p class="item-det">
                  {{#js_compare "this.odate_.indexOf('今天')==0"}}{{this.odate_}}{{else}}

@@ -49,7 +49,7 @@ var $card01 = "alipays://platformapi/startapp?appId=60000098&url=%2Fwww%2Fcard_e
 var $card02 = "alipays://platformapi/startapp?appId=60000098&url=%2Fwww%2Fcard_entry.html%3Fscene%3DTRANSIT%26subScene%3D330100%26cardType%3DT1330100%26source%3DHZ_BUS_STOP%26__webview_options__%3DcanPullDown%253DYES%2526pullRefresh%253DYES";
 
 //支付宝生产地址
-var $online = 'http://115.236.162.166:18081/exthtml/src/pages/index.html?type=index'
+var $online = 'http://115.236.162.166:18081/exthtml/src/pages/index.html?type=index&inSmk=true'
 
 
 var $AlipayBdServlet = "/web_hzsmk/AlipayBdServlet",

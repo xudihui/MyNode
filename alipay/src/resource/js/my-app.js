@@ -31,7 +31,7 @@ var setTransparentTitle = function(e,type){
 			if(e.detail.page.name == 'getCard'){
 					AlipayReady(function(){
 						AlipayJSBridge.call('setTransparentTitle', {
-						transparentTitle:"always"
+						transparentTitle:"auto"
 						});  
 					});
 					AlipayReady(function(){
@@ -99,6 +99,7 @@ var myApp = new Framework7({
 	pushStateNoAnimation: true,
 	template7Pages: true,
 	precompileTemplates: true,
+	fastClicks: false,
 	modalButtonOk: '确认',
 	modalButtonCancel: '取消',
 	animatePages:false,
@@ -185,10 +186,15 @@ window.getCardList = function(Id){
 				mainView.router.load({url:'cardDetail.html',pushState:false});
 			}
 			else if(data.code == "3007") {
-                myApp.confirm('信息获取失败，是否重新获取？',function(){
+                myApp.confirm(data.msg,function(){
                   getCardList(Id);
 				})
 			}
+			else if(data.code == "-1003") {
+                myApp.confirm(data.msg+'-1003',function(){
+                  getCardList(Id);
+				})
+			}			
 			else{
                 mainView.router.load({url:'getCard.html',pushState:false});
 			}
@@ -211,6 +217,9 @@ window.getAlipayInfo = function(opt){
                         url = extGetUserInfoByCode;
 			        }
 			        else if(type == 'userId'){
+			        	if(localStorage.getItem('ui_alipayId')){
+			        		return;
+			        	}
 			        	if(getQueryString("scope") == 'auth_user'){
 			        		window.location.href = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=2017011104993459&auth_skip=false&scope=auth_base&redirect_uri='+location.origin+location.pathname+'?type=index&inSmk=true';
 			        	}			        	
@@ -349,8 +358,15 @@ myApp.showIndicator();
 // localStorage.setItem('userInfo','{"certNo":"332528199009215415","certType":0,"userName":"徐迪辉","userId":"2088202911504154"}');
 
 $$(window).on('load', function() {	
-
 	myApp.hideIndicator();
+
+	//防止刷新页面
+	document.addEventListener('firePullToRefresh', function(e) {
+	    // 取消默认刷新行为，如果需要的话。取消默认刷新行为以后，可通过调用restorePullToRefresh接口恢复下拉面板
+	    e.preventDefault();
+		//恢复到默认状态
+		AlipayJSBridge.call('restorePullToRefresh');	    
+	  },false);
 	var hash = location.hash.slice(3) || '';
 	var url = '';
 
@@ -472,6 +488,16 @@ function FunKaika(){
     else{
 	 	ajax(extVirOpenCard,{alipayId:ui_alipayId,credit:ui_credit=='true' ? '1' : '2',mobile:userInfo.mobile,name:userInfo.userName,oidno:userInfo.certNo},function(data) {
 				console.log(data.response);
+			if(data.code == "3007") {
+                return myApp.confirm(data.msg,function(){
+                  FunKaika();
+				})
+			}
+			if(data.code == "-1003") {
+                return myApp.confirm(data.msg+'-1003' ,function(){
+                  FunKaika();
+				})
+			}
 				if(data.code != "0") return myApp.alert(data.msg,'开卡失败');
 				// 开卡成功
 				myCard = data.response;
