@@ -3443,10 +3443,10 @@
             app.closeModal('.modal.modal-in');
         };
         app.showIndicator = function () {
-            $('body').append('<div class="preloader-indicator-overlay"></div><div class="preloader-indicator-modal"><span class="preloader preloader-white">' + (app.params.material ? app.params.materialPreloaderSvg : '') + '</span></div>');
+            $('body').append('<div class="preloader-indicator-overlay"></div><div id="loader"><div id="top"></div><div id="bottom"></div><div id="line"></div></div>');
         };
         app.hideIndicator = function () {
-            $('div.preloader-indicator-overlay, div.preloader-indicator-modal').remove();
+            $('div.preloader-indicator-overlay, div.preloader-indicator-modal,#loader').remove();
         };
         app.showLogin = function () {
             $('body').append('<span class="preloader-indicator-overlay"></span><span class="preloader-indicator-modal"><span class="preloader preloader-white">' + '' + '</span></span>');
