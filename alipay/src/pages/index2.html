@@ -1,59 +1,379 @@
 <!DOCTYPE html>
-<html style='font-size:16px' version='2.6.1' class='officialAccounts' > <!-- 版本号，会在ajax请求头中传递给后台 -->
-  	<head>
+<html style='font-size:16px' version='2.6.1' class='alipay' > <!-- 版本号，会在ajax请求头中传递给后台 -->
+    <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no" />
-    <title>支付宝容器标题背景设置</title>  
+    <title></title>
     <link rel="stylesheet" href="../resource/css/framework7.ios_min.css">
-    <link rel="stylesheet" href="../resource/css/my-app.css">	
-	</head>
+    <link rel="stylesheet" href="../resource/css/my-app.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2ik6nzunpsj7nwmi.css">
+
+    <script type="text/javascript" src="../../conf/conf.js"></script>  
+              
+    <script>
+    //声明_czc对象:
+    var _czc = _czc || [];
+    //绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+    _czc.push(["_setAccount", "1260784412"]);
+    </script>           
+          
+  </head>
    <body baseUrl="/weixin/public/">
-<div style="padding-top:80px;">
-<img src="../resource/images/bg.png" style='width:100%;position:absolute;top:0'>
-<br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="statusbar-overlay"></div>
+    <div class="panel-overlay"></div>
+
+    <div class="views">
+      <div class="view view-main">
+
+        <div class="pages">
+          <div  class="page" data-page="smk-index" >
+            <div class="page-content" >
+            
+
+<!-- 
+
+
 <div class="wrap">
           <div class="row">
-            <div class="col-100"><a href="#" class="button button-big resetTransparent1" id='test'>标题背景透明</a></div>
+            <div class="col-100"><a href="#" class="button button-big" id='test'>打开schema</a></div>
+          </div>
+</div>  
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="#" class="button button-big" id='test1'>打开预付卡</a></div>
           </div>
 </div> 
 <div class="wrap">
           <div class="row">
-            <div class="col-100"><a href="#" class="button button-big resetTransparent" id='test'>标题背景不透明</a></div>
+            <div class="col-100"><a href="#" class="button button-big" id='test2'>打开后付卡</a></div>
+          </div>
+</div> 
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="test.html" class="button button-big">测试页面</a></div>
+          </div>
+</div>    
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="getCard.html" class="button button-big">开卡</a></div>
+          </div>
+</div>  
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="activeCard.html" class="button button-big">激活</a></div>
           </div>
 </div>  
 
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="rechargeAuto.html" class="button button-big">自动充值</a></div>
+          </div>
+</div>
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="cardDetail.html" class="button button-big">卡详情</a></div>
+          </div>
 </div>
 
-<script>
-function ready(callback) {
-  // 如果jsbridge已经注入则直接调用
-  if (window.AlipayJSBridge) {
-    callback && callback();
-  } else {
-    // 如果没有注入则监听注入的事件
-    document.addEventListener('AlipayJSBridgeReady', callback, false);
-  }
-}
-ready(function(){
-  document.querySelector('.resetTransparent1').addEventListener('click', function(){
-      AlipayJSBridge.call('setTransparentTitle', {
-      transparentTitle:"auto"
-      });
-  });
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="busList.html" class="button button-big">乘车记录</a></div>
+          </div>
+</div>
 
-  document.querySelector('.resetTransparent').addEventListener('click', function(){
-    AlipayJSBridge.call("setTransparentTitle",{
-      transparentTitle:"none"
-    });
-  });  
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="rechargeList.html" class="button button-big">充值记录</a></div>
+          </div>
+</div>
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="rechargeResult.html?status=01" class="button button-big">充值结果-成功</a></div>
+          </div>
+</div>
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="rechargeResult.html?status=02" class="button button-big">充值结果-失败</a></div>
+          </div>
+</div>
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="rechargeResult.html?status=03" class="button button-big">充值结果-取消</a></div>
+          </div>
+</div>
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="myCards.html" class="button button-big">我的卡片</a></div>
+          </div>
+</div>
 
-});
-</script>
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="busLine.html" class="button button-big">开通线路</a></div>
+          </div>
+</div>
 
 
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="realName.html" class="button button-big">实名认证</a></div>
+          </div>
+</div>
+
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="realNameResult.html" class="button button-big">实名认证成功</a></div>
+          </div>
+</div>
+
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="help.html" class="button button-big">使用帮助</a></div>
+          </div>
+</div>
+
+<div class="wrap">
+          <div class="row">
+            <div class="col-100"><a href="cancelResult.html" class="button button-big">退卡结果</a></div>
+          </div>
+</div>
+
+-->
+
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!-- template7 start --> 
+
+
+  <!-- 乘车消费列表模板 start --> 
+  <script type="text/template7" id="consumeList">
+  {{#if Result}}
+      {{#each trades}}  
+        <li class="item-content">
+          <div class="item-inner">
+           <div class="item-title">杭州-{{lineno}} <p class="item-det">
+            {{#js_compare "this.odate_.indexOf('今天')==0"}}{{this.odate_}}{{else}}
+           {{js "this.odate_.slice(4,6)"}}-{{js "this.odate_.slice(6,8)"}} {{js "this.odate_.slice(8,10)"}}:{{js "this.odate_.slice(10,12)"}}
+             {{/js_compare}} </p></div>
+             <div class="item-after">-{{paid.toFixed(2)}}</div>
+          </div>
+        </li>
+      {{/each}}
+           
+      {{else}}         
+           <div class="list-block media-list">
+              <ul class='none_wrap'>
+                <li style='padding:10px'  class='none'>暂无乘车记录
+                </li>
+              </ul>
+           </div>
+  {{/if}} 
+  </script>   
+    <!-- 乘车消费列表模板 end -->   
+
+
+  <!-- 充值列表模板 start --> 
+  <script type="text/template7" id="rechargeList">
+  {{#if Result}}
+      {{#each trades}}  
+            <li class="item-content">
+              <a href='rechargeDetail.html' data-context='{"odate": "{{odate}}","cardno": "{{cardno}}","ordertype": "{{ordertype}}","orderno": "{{orderno}}","thirdorderno": "{{thirdorderno}}","ordertype": "{{ordertype}}","ostate": "{{ostate}}","ordermoney": "{{ordermoney}}"}' class='no-fastclick'>
+              <div class="item-inner">
+                <div class="item-title">{{js "this.ordertype==1 ? '充值':'退款'"}} - {{cardno}}<p class="item-det">
+                 {{#js_compare "this.odate_.indexOf('今天')==0"}}{{this.odate_}}{{else}}
+                  {{js "this.odate_.slice(4,6)"}}-{{js "this.odate_.slice(6,8)"}}
+                 {{/js_compare}} 
+               </p></div>
+                <div class="text-right">
+                          {{js "parseFloat(this.ordermoney).toFixed(2)"}}
+                          {{#js_compare "this.ostate==0"}}<p class="color-orange">等待付款</p>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.ostate==1"}}<p class="color-blue">交易成功</p>{{else}}{{/js_compare}}
+                          {{#js_compare "this.ostate==2"}}<p class="color-gray">交易关闭</p>{{else}}{{/js_compare}}  
+                          {{#js_compare "this.ostate==6"}}<p class="color-orange">退款中</p>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.ostate==7"}}<p class="color-blue">退款成功</p>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.ostate==8"}}<p class="color-red">退款失败</p>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.ostate==9"}}<p class="color-gray">交易关闭</p>{{else}}{{/js_compare}}                           
+                </div>
+              </div>
+              </a>
+            </li>
+      {{/each}}
+           
+      {{else}}         
+           <div class="list-block media-list">
+              <ul class='none_wrap'>
+                <li style='padding:10px'  class='none'>暂无充值记录
+                </li>
+              </ul>
+           </div>
+  {{/if}} 
+  </script>   
+    <!-- 充值列表模板 end --> 
+
+  <!-- 充值列表模板BAK start --> 
+  <script type="text/template7" id="rechargeListBak">
+  {{#if Result}}
+      {{#each trades}}  
+            <li class="item-content">
+              <a href='rechargeDetail.html' data-context='{"odate": "{{odate}}","cardno": "{{cardno}}","ordertype": "{{ordertype}}","orderno": "{{orderno}}","thirdorderno": "{{thirdorderno}}","ordertype": "{{ordertype}}","ostate": "{{ostate}}","ordermoney": "{{ordermoney}}"}'>
+              <div class="item-inner">
+                <div class="item-title">{{js "this.odate.slice(4,6)"}}-{{js "this.odate.slice(6,8)"}} {{js "this.odate.slice(8,10)"}}:{{js "this.odate.slice(10,12)"}}<p class="item-det">电子公交尾号({{cardno.slice(-4)}}){{js "this.ordertype==1 ? '充值':'退款'"}}</p></div>
+                <div class="text-right">
+                          {{#js_compare "this.ostate==0"}}<p class="color-orange">等待付款</p>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.ostate==1"}}<p class="color-blue">交易成功</p>{{else}}{{/js_compare}}
+                          {{#js_compare "this.ostate==2"}}<p class="color-gray">交易关闭</p>{{else}}{{/js_compare}}  
+                          {{#js_compare "this.ostate==6"}}<p class="color-orange">退款中</p>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.ostate==7"}}<p class="color-blue">退款成功</p>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.ostate==8"}}<p class="color-red">退款失败</p>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.ostate==9"}}<p class="color-gray">交易关闭</p>{{else}}{{/js_compare}} 
+                          {{js "parseFloat(this.ordermoney).toFixed(2)"}}
+                </div>
+              </div>
+              </a>
+            </li>
+      {{/each}}
+           
+      {{else}}         
+           <div class="list-block media-list">
+              <ul class='none_wrap'>
+                <li style='padding:10px'  class='none'>暂无充值记录
+                   <a href="recharge.html" class="button btn-big btn-white">立即充值</a>
+                </li>
+              </ul>
+           </div>
+  {{/if}} 
+  </script>   
+    <!-- 充值列表模板 end -->       
+
+
+  <!-- 补登记录 start --> 
+  <script type="text/template7" id="recordPage">
+  {{#if Result}}
+      {{#each data}}     
+       <div class="list-block record" promoParams='{{promoParams}}' wallet_sn='{{wallet_sn}}'  OrderCode='{{order_code}}' PayOrderNo = '{{pay_sn}}' CardNo='{{card_no}}' Money='{{order_fee}}' Type='{{type}}'>
+        <ul class='{{#js_compare "this.business_tag_code==901"}}red_packet{{else}}{{/js_compare}}'>
+          <li style="padding-top:10px;">
+            <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">交易时间:<span class='gray'>
+                           {{js "this.time_start.slice(0,4)"}}-{{js "this.time_start.slice(4,6)"}}-{{js "this.time_start.slice(6,8)"}} {{js "this.time_start.slice(8,10)"}}:{{js "this.time_start.slice(10,12)"}}:{{js "this.time_start.slice(12,14)"}}
+                      </span></div>
+
+                      <div class="item-title">  
+                       <p class='order_wrap_blue'>
+                          {{#js_compare "this.order_state==0"}}<span class='red'>未支付</span>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==111"}}<span class='orange'>待补登</span>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==9"}}<span class='gray'>订单已关闭</span>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==202"}}<span class='gray'>已关闭</span>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==410"}}{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==100"}}订单处理中{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==511"}}<span class='gray'>已关闭</span>{{else}}{{/js_compare}} 
+                       </p>
+                      </div>                      
+                    </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">卡<i class="font"></i><i class="font"></i>号:<span class='gray'>{{card_no}}</span></div>
+                    </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">充值区域:<span class='gray'>{{js "this.type==2 || this.type==3 ?parseInt(this.time_start.slice(4,6))+'月':''"}}{{js "this.type==4 ? parseInt(this.time_start.slice(4,6) == '12' ? '0' :this.time_start.slice(4,6) )+1+'月' :''"}}{{type==1?'钱包':'月票'}}</span></div>
+                    </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">充值金额:<span class='gray'>{{order_fee/100}}</span></div>
+                      <div class="item-title">  
+                       <p class='order_wrap'>
+                          {{#js_compare "this.order_state==0"}}<a href='#' class='pay'>去支付</a>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==111 && this.business_tag_code!=901"}}<a href='#' class='refund'>去退款</a>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==9"}}<span class='blue'>订单超时</span>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==202"}}支付失败{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==410"}}<span class='blue'>退款中</span>{{else}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==100"}}{{/js_compare}} 
+                          {{#js_compare "this.order_state==511"}}退款成功{{else}}{{/js_compare}} 
+                       </p>
+                      </div>                        
+                    </div>
+            </div>
+          </li>  
+          <li style="padding-bottom: 10px;">
+            <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title">订单流水:<span class='gray'>{{order_code}}</span></div>
+
+                    </div>
+            </div>
+          </li>                               
+        </ul>
+      </div>
+      {{/each}}
+           
+      {{else}}         
+           <div class="list-block media-list"><ul class='none_wrap'><li style='padding:10px'  class='none'>暂无交易记录</li></ul></div>
+          {{/if}}  
+    </script>
+    <!-- 补登记录 end --> 
+
+     <script type="text/template7" id="List">
+      <form action="https://hpay.96225.com/HzsmkAliPay/orderPay.do" method="post" style='width:0px;height:0px;overflow:hidden'> 
+        <input type="text" name="version" value="{{version}}" />
+        <input type="text" name="transCode" value="{{transCode}}" />
+        <input type="text" name="reqSeq" value="{{reqSeq}}" />
+        <input type="text" name="merCode" value="{{merCode}}" />
+        <input type="text" name="chainNo" value="{{chainNo}}" />
+        <input type="text" name="orderNo" value="{{orderNo}}" />
+        <input type="text" name="dateTime" value="{{dateTime}}" />
+        <input type="text" name="amount" value="{{amount}}" />
+        <input type="text" name="goods" value="{{goods}}" />
+        <input type="text" name="notifyUrl" value="{{notifyUrl}}" />
+        <input type="text" name="returnUrl" value="{{returnUrl}}" />
+        <input type="text" name="sign" value="{{sign}}" />
+        <input type="text" name="promoParams" value="{{promoParams}}" />
+        <input type="submit" value="立即支付" id='doPay'>
+      </form>
+    </script>   
+
+   <script type="text/template7" id="List_bak">
+      <form action="{{aliWapUrl}}/orderPay.do" method="post" style='width:0px;height:0px;overflow:hidden'> 
+        <input type="text" name="version" value="{{version}}" />
+        <input type="text" name="transCode" value="{{transCode}}" />
+        <input type="text" name="reqSeq" value="{{reqSeq}}" />
+        <input type="text" name="merCode" value="{{merCode}}" />
+        <input type="text" name="chainNo" value="{{chainNo}}" />
+        <input type="text" name="orderNo" value="{{orderNo}}" />
+        <input type="text" name="dateTime" value="{{dateTime}}" />
+        <input type="text" name="amount" value="{{amount}}" />
+        <input type="text" name="goods" value="{{goods}}" />
+        <input type="text" name="notifyUrl" value="{{notifyUrl}}" />
+        <input type="text" name="returnUrl" value="{{returnUrl}}" />
+        <input type="text" name="sign" value="{{sign}}" />
+        <input type="text" name="promoParams" value="{{promoParams}}" />
+        <input type="submit" value="立即支付" id='doPay'>
+      </form>
+    </script>  
+<!-- template7 end -->
+   
+    <script type="text/javascript" src="../resource/js/ajax.js"></script>
+    <script type="text/javascript" src="../resource/js/framework7.js"></script>
+    <script type="text/javascript" src="../resource/js/my-app.js"></script>
     </body>
 </html>

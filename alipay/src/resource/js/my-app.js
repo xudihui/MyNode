@@ -1,7 +1,7 @@
 var getQueryString=function(name,str) {		//提取href参数ccc
 	var str_; //键值对 
 	if(str && location.hash){
-		str_ = str.split('index#!')[1];
+		str_ = str.split('index#!')[1] || ''; //当搜索hash中的键值对时，无值时必须赋值为'',否则无法substr
 	}
 	else{
         str_ = window.location.search;
