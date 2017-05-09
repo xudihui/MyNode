@@ -189,11 +189,6 @@ window.getCardList = function(Id){
                 myApp.confirm(data.msg,function(){
                   getCardList(Id);
 				})
-			}
-			else if(data.code == "-1003") {
-                myApp.confirm(data.msg+'-1003',function(){
-                  getCardList(Id);
-				})
 			}			
 			else{
                 mainView.router.load({url:'getCard.html',pushState:false});
@@ -482,8 +477,7 @@ function FunKaika(){
 
 	//如果没有授信
     if(ui_credit == '0'){
-    	 console.log('https://fengdie.alipay.com/p/f/public_transit/card_entry.html?scene=TRANSIT&subScene=310100&redirectUrl='+encodeURIComponent($online)+'&action=sign&isSupportPrepay=true&cardTitle='+encodeURIComponent('杭州通电子公交卡')+'&source=HZ_BUS_ISSUE')
-    	 window.location.href = 'https://fengdie.alipay.com/p/f/public_transit/card_entry.html?scene=TRANSIT&subScene=310100&redirectUrl='+encodeURIComponent($online)+'&action=sign&isSupportPrepay=true&cardTitle='+encodeURIComponent('杭州通电子公交卡')+'&source=HZ_BUS_ISSUE';
+    	window.location.href = 'https://render.alipay.com/p/f/public_transit/card_entry.html?action=sign&scene=TRANSIT&subScene=330100&redirectUrl='+encodeURIComponent($online)+'&isSupportPrepay=true&cardTitle='+encodeURIComponent('杭州通电子公交卡')+'&source=HZ_BUS_ISSUE';
     }
     else{
 	 	ajax(extVirOpenCard,{alipayId:ui_alipayId,credit:ui_credit=='true' ? '1' : '2',mobile:userInfo.mobile,name:userInfo.userName,oidno:userInfo.certNo},function(data) {
@@ -492,13 +486,8 @@ function FunKaika(){
                 return myApp.confirm(data.msg,function(){
                   FunKaika();
 				})
-			}
-			if(data.code == "-1003") {
-                return myApp.confirm(data.msg+'-1003' ,function(){
-                  FunKaika();
-				})
-			}
-				if(data.code != "0") return myApp.alert(data.msg,'开卡失败');
+			}}
+			if(data.code != "0") return myApp.alert(data.msg,'开卡失败');
 				// 开卡成功
 				myCard = data.response;
 				if(data.response.cardsubtype == "11"){
@@ -518,7 +507,7 @@ function FunKaika(){
 									// 回到卡详情页面
 									mainView.router.back({url:'cardDetail.html',reload:true,context:data.response});
 								} else {
-					          		mainView.router.load({url:'cardDetail.html',context:data.response})
+					          		mainView.router.load({url:'cardDetail.html',reload:true,context:data.response})
 
 								}
 							}
@@ -528,7 +517,7 @@ function FunKaika(){
 					        onClick: function() {
 					          // 跳转到立即充值，并把卡号带过去，存储进session，防止同步支付成功后卡号丢失
 					          sessionStorage.setItem('selectCardNo',data['response']['cardno']);
-					          mainView.router.load({url:'recharge.html',context:{cardNumber:data['response']['cardno']}});
+					          mainView.router.load({url:'recharge.html',reload:true,context:{cardNumber:data['response']['cardno']}});
 					        }
 					      }
 					   	]
@@ -551,7 +540,7 @@ function FunKaika(){
 									// 回到卡详情页面
 									mainView.router.back({url:'cardDetail.html',reload:true,context:data.response});
 								} else {
-					          		mainView.router.load({url:'cardDetail.html',context:data.response})
+					          		mainView.router.load({url:'cardDetail.html',reload:true,context:data.response})
 
 								}
 								}
@@ -561,7 +550,7 @@ function FunKaika(){
 						        onClick: function() {
 						          // 跳转到立即充值，并把卡号带过去，存储进session，防止同步支付成功后卡号丢失
 						          sessionStorage.setItem('selectCardNo',data['response']['cardno']);
-						          mainView.router.load({url:'recharge.html',context:{cardNumber:data['response']['cardno']}});
+						          mainView.router.load({url:'recharge.html',reload:true,context:{cardNumber:data['response']['cardno']}});
 						        }
 					      	}
 					      ]
@@ -880,23 +869,12 @@ setTimeout(function(){
 					      ]
 					});
 				} else{
-				// 跳支付页面
-				/*
-	              document.addEventListener('AlipayJSBridgeReady', function () {				
-					AlipayJSBridge.call('pushWindow', {
-					    url: selectCardType == "0" ? $card01 : $card02,
-					    param: {
-					        closeCurrentWindow: true
-					    }
-					}); 
-				  }, false); 	
-                */
                
-    	        window.location.href = 'https://fengdie.alipay.com/p/f/public_transit/card_entry.html?scene=TRANSIT&cardType='
+    	        window.location.href = 'https://render.alipay.com/p/f/public_transit/card_entry.html?scene=TRANSIT&cardType='
     	                               + (myCard.cardsubtype== '12' ? 'T0330100' : 'T1330100') 
     	                               +'&cardNo='
     	                               + myCard.cardno
-    	                               +'&subScene=310100&action=use&source=HZ_BUS_USE';
+    	                               +'&subScene=330100&action=use&source=HZ_BUS_USE';
                     
 					
 				}
