@@ -17,55 +17,6 @@
         jshint = require('gulp-jshint'),
         babel = require("gulp-babel"),
         stylish = require('jshint-stylish'),
-        fs = require('fs'),
-        paths = {
-            root: './',
-            build: {
-                root: 'build/',
-                styles: 'build/css/',
-                scripts: 'build/js/'
-            },
-            custom: {
-                root: 'custom/',
-                styles: 'custom/css/',
-                scripts: 'custom/js/',
-            },
-            dist: {
-                root: 'dist/',
-                styles: 'dist/css/',
-                scripts: 'dist/js/'
-            },
-            ks: {
-                ios : {
-                    root: 'kitchen-sink-ios/',
-                    css: 'kitchen-sink-ios/css/',
-                    jade: 'kitchen-sink-ios/jade/*.jade',
-                    less: 'kitchen-sink-ios/less/*.less',
-                },
-                material : {
-                    root: 'kitchen-sink-material/',
-                    css: 'kitchen-sink-material/css/',
-                    jade: 'kitchen-sink-material/jade/*.jade',
-                    less: 'kitchen-sink-material/less/*.less',
-                }
-            },
-            source: {
-                root: 'src/',
-                styles: {
-                    ios: 'src/less/ios/',
-                    material: 'src/less/material/'
-                },
-                scripts: 'src/js/*.js'
-            },
-            examples: {
-                root: 'examples/',
-                list: ['inline-pages', 'split-view', 'split-view-panel', 'tab-bar', 'template7-pages']
-            }
-        };
-        
-    /* ==================================================================
-    Build Framework7
-    ================================================================== */
     //合并js
     gulp.task('concatJs', function (cb) {
         gulp.src(['./src/js/b.js','./src/js/a.js'])
