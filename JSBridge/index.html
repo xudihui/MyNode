@@ -40,6 +40,24 @@ ready(function(){
 
 </section>
 <script type="text/javascript">
+  var $ = function(el){
+        return document.querySelectorAll(el)
+  }
+  var getQueryString=function(name,str) {   //提取href参数ccc
+    var str_; //键值对 
+    if(str){
+      str_ = str.split('html')[1];
+    }
+    else{
+          str_ = window.location.search;
+    }
+    // console.log(str_)
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+      var r = str_.substr(1).match(reg);
+      if (r != null) {
+          return unescape(r[2]);
+      }
+  }
   function ready(callback) {
     if (window.SmkJSBridge) {
     callback && callback();
@@ -47,40 +65,66 @@ ready(function(){
     document.addEventListener('SmkJSBridgeReady', callback, false);
     }
   }
+  function ready_(callback){
+      callback && callback();
+  }
+  var pre = $('pre')[0];
+  var debug_log = 'debug模式日志:'
+  if(getQueryString('debug')){
+     pre.innerHTML = debug_log;
+     ready = ready_;
+  }  
   ready(function(){
-    var $ = function(el){
-          return document.querySelectorAll(el)
-    }
-
     var btns = $('.btn');
     btns[0].onclick = function(){
-      SmkJSBridge.call('getNetworkType', function (res) {
-        btns[0].innerHTML = res.networkType; //网络类型值：UNKNOWN/NOTREACHABLE/WIFI/3G/2G/4G/WWAN
-      });       
+      try
+      {
+        SmkJSBridge.call('getNetworkType', function (res) {
+          btns[0].innerHTML = res.networkType; //网络类型值：UNKNOWN/NOTREACHABLE/WIFI/3G/2G/4G/WWAN
+        }); 
+      }
+    catch(err)
+      {
+      pre.innerHTML = pre.innerHTML + ';' + err.description
+      }      
     }
     btns[1].onclick = function(){
-      SmkJSBridge.call('share', {
-        title: '恭喜你发起分享',
-        link: 'http://weixin.96225.com',
-        imgUrl: ' http://weixin.96225.com/share.png',
-        success: function () {
-            alert('分享成功')
-        },
-        error: function () {
-            alert('分享失败')
+      try
+      {
+         SmkJSBridge.call('share', {
+          title: '恭喜你发起分享',
+          link: 'http://weixin.96225.com',
+          imgUrl: ' http://weixin.96225.com/share.png',
+          success: function () {
+              alert('分享成功')
+          },
+          error: function () {
+              alert('分享失败')
 
-        },
-        cancel: function () {
-            alert('分享取消 ')
-        }
-      })      
+          },
+          cancel: function () {
+              alert('分享取消 ')
+          }
+        })
+      }
+    catch(err)
+      {
+      pre.innerHTML = pre.innerHTML + ';' + err.description
+      }      
+      
     }
     btns[2].onclick = function(){
-      var x = prompt('请输入您的新标题:');
-      if(x){
-        SmkJSBridge.call('setTitle',x);
+      try
+      {
+        var x = prompt('请输入您的新标题:');
+        if(x){
+          SmkJSBridge.call('setTitle',x);
+        }
       }
-
+    catch(err)
+      {
+      pre.innerHTML = pre.innerHTML + ';' + err.description
+      }
              
     }    
   });
