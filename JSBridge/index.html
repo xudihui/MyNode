@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>jsBridge测试</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h2 class="project-name" id='outPut'>JSBridge测试</h2>
+	    <a class="btn">获取网络类型</a>
+      <a class="btn">分享</a>
+      <p></p>
+    </section>
+
+    <section class="main-content">
+    
+<h3 id="here-is-an-unordered-list">使用说明</h3>
+<ul>
+  <li>容器会初始化，产生一个全局变量SmkJSBridge, 然后触发此事件，SmkJSBridge注入是一个异步过程，因此尽可能先监听该事件后再call接口。
+代码演示：</li>
+</ul>
+<pre>
+function ready(callback) {
+  if (window.SmkJSBridge) {
+  callback && callback();
+  } else {
+  document.addEventListener('SmkJSBridgeReady', callback, false);
+  }
+}
+ready(function(){
+  ...
+});
+</pre>
+
+</section>
+<script type="text/javascript">
+  function ready(callback) {
+    if (window.SmkJSBridge) {
+    callback && callback();
+    } else {
+    document.addEventListener('SmkJSBridgeReady', callback, false);
+    }
+  }
+  ready(function(){
+    var $ = function(el){
+          return document.querySelectorAll(el)
+    }
+
+    var btns = $('.btn');
+    btns[0].onclick = function(){
+      SmkJSBridge.call('getNetworkType', function (res) {
+        btns[0].innerHTML = res.networkType; //网络类型值：UNKNOWN/NOTREACHABLE/WIFI/3G/2G/4G/WWAN
+      });       
+    }
+    btns[1].onclick = function(){
+      SmkJSBridge.call('share', {
+        title: '恭喜你发起分享',
+        link: 'http://weixin.96225.com',
+        imgUrl: ' http://weixin.96225.com/share.png',
+        success: function () {
+            alert('分享成功')
+        },
+        error: function () {
+            alert('分享失败')
+
+        },
+        cancel: function () {
+            alert('分享取消 ')
+        }
+      })      
+    }
+  });
+
+
+</script>
+  
+  </body>
+</html>
