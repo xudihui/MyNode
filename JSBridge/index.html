@@ -15,6 +15,7 @@
 	    <a class="btn">获取网络类型</a>
       <a class="btn">分享</a>
       <a class="btn">修改title</a>
+      <a class="btn">修改title2</a>
       <p></p>
     </section>
 
@@ -127,6 +128,20 @@ ready(function(){
       }
              
     }    
+    btns[3].onclick = function(){
+      try
+      {
+        var x = prompt('请输入您的新标题:');
+        if(x){
+           window.SmkJSBridge.setTitle(x)
+        }
+      }
+    catch(err)
+      {
+      pre.innerHTML = pre.innerHTML + ';' + err.description
+      }
+             
+    }      
   });
 
 
